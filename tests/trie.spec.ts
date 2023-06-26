@@ -1,32 +1,28 @@
-import { assert } from "chai";
-import { Trie } from "../src/trie";
+import { assert } from 'chai';
 
-const names = ['Anna', 'Bea', 'Christine', 'Lina', 'Lisa', 'Lotta', 'Petronella', 'Petunia', 'Pölly']
+import { Trie } from '../src/trie';
 
+const mockDataArray = ['Anna', 'Bea', 'Christine', 'Lina', 'Lisa', 'Lotta', 'Petronella', 'Petunia', 'Pölly']
 const setUp = () => {
   const trie = new Trie()
   
-  names.forEach(name => trie.insert(name.toLowerCase()))
+  mockDataArray.forEach(name => trie.insert(name.toLowerCase()))
   return () => trie;
 }
 const setUpTrie = setUp();
 
-describe("Trie Node class Tests", () => {
+describe("Trie class Tests", () => {
   it("Should have the same size as names array", () => {
     const trie = setUpTrie();
 
-    assert.equal(trie.getTrieList().length, names.length)     
+    assert.equal(trie.getTrieList().length, mockDataArray.length)     
   });
-  // it("should not be end", () => {
-  //   assert.isFalse(node.end);
-  // });
-  // it("should have no childs", () => {
-  //   assert.lengthOf(node.childs, 0);
-  // });
-  // it("should have a child with char a", () => {
-  //   const child = new Node("a");
-
-  //   node.childs[0] = child;
-  //   assert.isTrue(node.get("a"));
-  // });
+  it("Should return two match names for 'li'", () => {
+    const trie = setUpTrie();
+    const prefixes = trie.findPrefix('li')
+    
+    assert.isTrue(prefixes?.some(pf => pf === 'lisa'))
+    assert.isTrue(prefixes?.some(pf => pf === 'lina'))
+    assert.equal(prefixes?.length, 2)
+  });
 });

@@ -1,6 +1,6 @@
-export class Node {
+export class TrieNode {
   end: boolean = false;
-  childs: Node[] = [];
+  childs: TrieNode[] = [];
   char: string | undefined;
 
   constructor(char?: string, end = false) {

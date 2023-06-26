@@ -1,16 +1,17 @@
-import { Node } from "./node";
+import { TrieNode } from './trieNode';
 
 export class Trie {
   private readonly alphabet: string = "abcdefghijklmnopqrstuvwxyz";
-  root: Node;
+  root: TrieNode;
 
   constructor() {
-    this.root = new Node();
+    this.root = new TrieNode();
   }
 
   findIndex(char: string) {
     const charAt = this.alphabet.indexOf(char);
 
+    // "fulhack" for swedish letters as the order gets all wrong
     if (char === "å") return 27;
     if (char === "ä") return 28;
     if (char === "ö") return 29;
@@ -19,14 +20,14 @@ export class Trie {
   }
 
   insert(key: string) {
-    let node: Node = this.root;
+    let node: TrieNode = this.root;
 
     for (let i = 0; i < key.length; i++) {
       const char = key[i];
       const index = this.findIndex(char);
 
       if (node.childs[index] === undefined) {
-        node.childs[index] = new Node(char);
+        node.childs[index] = new TrieNode(char);
       }
       node = node.childs[index];
     }
@@ -50,7 +51,7 @@ export class Trie {
     return this.getTrieListRec(this.root, "", []);
   }
 
-  private getTrieListRec(node: Node, chars: string, list: string[]): string[] {
+  private getTrieListRec(node: TrieNode, chars: string, list: string[]): string[] {
     if (node.char) chars += node.char;
     if (node.end) list.push(chars);
     for (let i = 0; i < node.childs.length; i++) {
@@ -64,7 +65,7 @@ export class Trie {
     return this.printTrieFastRec(this.root, "");
   }
 
-  private printTrieFastRec(node: Node, chars: string) {
+  private printTrieFastRec(node: TrieNode, chars: string) {
     if (node.char) chars += node.char;
     if (node.end) console.log(chars);
     for (let i = 0; i < node.childs.length; i++) {
@@ -92,7 +93,7 @@ export class Trie {
     return this.findPrefixRec(node, str, []);
   }
 
-  private findPrefixRec(node: Node, prefix: string, list: string[]) {
+  private findPrefixRec(node: TrieNode, prefix: string, list: string[]) {
     console.log(list, prefix, node);
     if (node.end) list.push(prefix);
     for (let i = 0; i < node.childs.length; i++) {

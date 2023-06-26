@@ -9,6 +9,7 @@ var Trie = /** @class */ (function () {
     }
     Trie.prototype.findIndex = function (char) {
         var charAt = this.alphabet.indexOf(char);
+        // "fulhack" for swedish letters as the order gets all wrong
         if (char === "å")
             return 27;
         if (char === "ä")
