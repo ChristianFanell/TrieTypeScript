@@ -6,6 +6,7 @@ export class TrieNode {
   constructor(char?: string, end = false) {
     this.end = end;
     this.char = char;
+    this.childs = new Array(30);
   }
 
   get(key: string): boolean {

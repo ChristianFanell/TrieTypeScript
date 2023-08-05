@@ -7,8 +7,6 @@ for (var _i = 0, names_1 = names; _i < names_1.length; _i++) {
     var name_1 = names_1[_i];
     trie.insert(name_1.toLowerCase());
 }
-var finded = trie.findPrefix('pe');
-// const finded = trie.getTrieList()
-// console.log(trie.printTrieFast());
-// console.log(trie.getTrieList());
-console.log(finded);
+var nameList = trie.findPrefix('pö');
+console.log(nameList, trie.getTrieList());
+console.log(trie.printTrieFast());

@@ -5,3 +5,7 @@ const names = ['Anna', 'Bea', 'Christine', 'Lina', 'Lisa', 'Lotta', 'Petronella'
 
 for (let name of names)
   trie.insert(name.toLowerCase())
+
+
+  const nameList = trie.findPrefix('pö')
+  console.log(trie.printTrieFast());

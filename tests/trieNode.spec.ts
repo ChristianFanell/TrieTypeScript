@@ -12,9 +12,7 @@ describe("Trie Node class Tests", () => {
   it("should not be end", () => {
     assert.isFalse(node.end);
   });
-  it("should have no childs", () => {
-    assert.lengthOf(node.childs, 0);
-  });
+
   it("should have a child with char a", () => {
     const child = new TrieNode("a");
 

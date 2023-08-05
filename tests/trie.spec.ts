@@ -25,4 +25,11 @@ describe("Trie class Tests", () => {
     assert.isTrue(prefixes?.some(pf => pf === 'lina'))
     assert.equal(prefixes?.length, 2)
   });
+  it("Should work with swedish letters to", () => {
+    const trie = setUpTrie();
+    const prefixes = trie.findPrefix('pö')
+    
+    assert.isTrue(prefixes?.some(pf => pf === 'pölly'))
+    assert.equal(prefixes?.length, 1)
+  });
 });

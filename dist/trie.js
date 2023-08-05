@@ -1,22 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Trie = void 0;
-var node_1 = require("./node");
+var trieNode_1 = require("./trieNode");
 var Trie = /** @class */ (function () {
     function Trie() {
-        this.alphabet = "abcdefghijklmnopqrstuvwxyz";
-        this.root = new node_1.Node();
+        this.alphabet = "abcdefghijklmnopqrstuvwxyzåäö";
+        this.root = new trieNode_1.TrieNode();
     }
     Trie.prototype.findIndex = function (char) {
         var charAt = this.alphabet.indexOf(char);
-        // "fulhack" for swedish letters as the order gets all wrong
-        if (char === "å")
-            return 27;
-        if (char === "ä")
-            return 28;
-        if (char === "ö")
-            return 29;
-        return this.alphabet.charCodeAt(charAt) - this.alphabet.charCodeAt(0);
+        return charAt;
     };
     Trie.prototype.insert = function (key) {
         var node = this.root;
@@ -24,7 +17,7 @@ var Trie = /** @class */ (function () {
             var char = key[i];
             var index = this.findIndex(char);
             if (node.childs[index] === undefined) {
-                node.childs[index] = new node_1.Node(char);
+                node.childs[index] = new trieNode_1.TrieNode(char);
             }
             node = node.childs[index];
         }
@@ -83,19 +76,17 @@ var Trie = /** @class */ (function () {
                 node = node.childs[index];
             }
         }
-        return this.findPrefixRec(node, str, []);
+        return this.findPrefixRec(node, str.toLowerCase(), []);
     };
     Trie.prototype.findPrefixRec = function (node, prefix, list) {
-        console.log(list, prefix, node);
         if (node.end)
             list.push(prefix);
         for (var i = 0; i < node.childs.length; i++) {
             if (node.childs[i] !== undefined) {
-                console.log(node.childs[i], prefix, list);
                 this.findPrefixRec(node.childs[i], prefix + node.childs[i].char, list);
             }
-            return list;
         }
+        return list;
     };
     return Trie;
 }());
