@@ -28,7 +28,6 @@ export class Trie {
     let node = this.root;
 
     for (let i = 0; i < search.length; i++) {
-      console.log(i);
       let index = this.findIndex(search[i]);
       if (node.childs[index] === undefined) {
         return [];

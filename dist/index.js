@@ -1,12 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var trie_1 = require("./trie");
+var data_1 = require("./data");
 var trie = new trie_1.Trie();
-var names = ['Anna', 'Bea', 'Christine', 'Lina', 'Lisa', 'Lotta', 'Petronella', 'Petunia', 'Pölly'];
-for (var _i = 0, names_1 = names; _i < names_1.length; _i++) {
-    var name_1 = names_1[_i];
-    trie.insert(name_1.toLowerCase());
-}
-var nameList = trie.findPrefix('pö');
-console.log(nameList, trie.getTrieList());
-console.log(trie.printTrieFast());
+var data = (0, data_1.getData)("svenska-ord.txt");
+data.forEach(function (word) { return trie.insert(word.toLowerCase()); });
+var pref = trie.findPrefix("data");
+console.log(pref);

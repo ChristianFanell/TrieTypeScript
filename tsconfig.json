@@ -3,7 +3,7 @@
   "include": ["./src/**/*.ts", "src/index.ts"],
   "compilerOptions": {
     "outDir": "dist",
-
+    "resolveJsonModule": true,
     "target": "es5",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     // "baseUrl": "src",
     /* Modules */

@@ -7,10 +7,6 @@ var Trie = /** @class */ (function () {
         this.alphabet = "abcdefghijklmnopqrstuvwxyzåäö";
         this.root = new trieNode_1.TrieNode();
     }
-    Trie.prototype.findIndex = function (char) {
-        var charAt = this.alphabet.indexOf(char);
-        return charAt;
-    };
     Trie.prototype.insert = function (key) {
         var node = this.root;
         for (var i = 0; i < key.length; i++) {
@@ -23,16 +19,23 @@ var Trie = /** @class */ (function () {
         }
         node.end = true;
     };
-    Trie.prototype.get = function (key) {
+    Trie.prototype.findPrefix = function (search) {
+        var str = "";
         var node = this.root;
-        for (var i = 0; i < key.length; i++) {
-            var char = key[i];
-            var index = this.findIndex(char);
-            if (node.childs[index] === undefined)
-                return false;
-            node = node.childs[index];
+        for (var i = 0; i < search.length; i++) {
+            var index = this.findIndex(search[i]);
+            if (node.childs[index] === undefined) {
+                return [];
+            }
+            if (search[i] === node.childs[index].char) {
+                str += node.childs[index].char;
+                node = node.childs[index];
+            }
         }
-        return true;
+        return this.findPrefixRec(node, str.toLowerCase(), []);
+    };
+    Trie.prototype.printTrieFast = function () {
+        return this.printTrieFastRec(this.root, "");
     };
     Trie.prototype.getTrieList = function () {
         return this.getTrieListRec(this.root, "", []);
@@ -48,9 +51,6 @@ var Trie = /** @class */ (function () {
         }
         return list;
     };
-    Trie.prototype.printTrieFast = function () {
-        return this.printTrieFastRec(this.root, "");
-    };
     Trie.prototype.printTrieFastRec = function (node, chars) {
         if (node.char)
             chars += node.char;
@@ -62,22 +62,6 @@ var Trie = /** @class */ (function () {
                 this.printTrieFastRec(node.childs[i], chars);
         }
     };
-    Trie.prototype.findPrefix = function (search) {
-        var str = "";
-        var node = this.root;
-        for (var i = 0; i < search.length; i++) {
-            console.log(i);
-            var index = this.findIndex(search[i]);
-            if (node.childs[index] === undefined) {
-                return [];
-            }
-            if (search[i] === node.childs[index].char) {
-                str += node.childs[index].char;
-                node = node.childs[index];
-            }
-        }
-        return this.findPrefixRec(node, str.toLowerCase(), []);
-    };
     Trie.prototype.findPrefixRec = function (node, prefix, list) {
         if (node.end)
             list.push(prefix);
@@ -87,6 +71,10 @@ var Trie = /** @class */ (function () {
             }
         }
         return list;
+    };
+    Trie.prototype.findIndex = function (char) {
+        var charAt = this.alphabet.indexOf(char);
+        return charAt;
     };
     return Trie;
 }());

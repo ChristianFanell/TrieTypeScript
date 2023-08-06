@@ -1,11 +1,11 @@
-import { Trie } from './trie';
+import { Trie } from "./trie";
+import { getData } from "./data";
 
-const trie = new Trie()
-const names = ['Anna', 'Bea', 'Christine', 'Lina', 'Lisa', 'Lotta', 'Petronella', 'Petunia', 'Pölly']
+const trie = new Trie();
+const data = getData("svenska-ord.txt");
 
-for (let name of names)
-  trie.insert(name.toLowerCase())
+data.forEach((word) => trie.insert(word.toLowerCase()));
 
+const pref = trie.findPrefix("data");
 
-  const nameList = trie.findPrefix('pö')
-  console.log(trie.printTrieFast());
+console.log(pref);
